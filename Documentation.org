@@ -1,0 +1,111 @@
+#+TITLE:        PyPocket Documentation
+#+AUTHOR:       Pedro Chinen
+#+EMAIL:        ph.u.chinen@gmail.com
+#+DATE-CREATED: [2017-08-22 Tue]
+#+DATE-UPDATED: [2017-08-22 Tue]
+
+Resumo:
+
+* Engenharia de Software 
+:PROPERTIES:
+:ID:       a0959dd5-3962-41a0-af2d-bd4bf7db75f1
+:END:
+** Ordem das ações que esperadas
+:PROPERTIES:
+:ID:       95293495-c646-4091-b77b-0c327fc2e7e4
+:END:
+*** Logar no Sistema Pocket
+:PROPERTIES:
+:ID:       25ccbf98-81ab-45dd-987d-e6ed0f071351
+:END:
+*** Buscar links
+:PROPERTIES:
+:ID:       17853dc6-a288-4b22-b1e9-f3a6cc79d8c4
+:END:
+*** Salvar links no arquivo
+:PROPERTIES:
+:ID:       2a9a86ac-0a52-4bc8-bad0-9ca7e4298731
+:END:
+*** Arquivar links no Sistema Pocket
+:PROPERTIES:
+:ID:       ad99ddbe-943c-4434-aa83-1d32de8b0854
+:END:
+** Requisitos
+:PROPERTIES:
+:ID:       7b7914cb-2e2c-4720-8694-14fde85cdb98
+:END:
+
+*** Deve conseguir trazer os links salvos
+:PROPERTIES:
+:ID:       fd4f142a-4e24-4fcb-817d-881f5df3bb62
+:END:
+
+*** Depois de trazer os links salvá-los no arquivo ORG
+:PROPERTIES:
+:ID:       4b5e101f-c45d-44c2-afa4-2a4932e3e436
+:END:
+*** Deve conseguir autenticar o usuário
+:PROPERTIES:
+:ID:       c83d972b-017f-495c-bf88-f7068a475ced
+:END:
+*** Deve conseguir alterar informações no Servidor Pocket
+:PROPERTIES:
+:ID:       98413317-6ad5-4f54-85f7-f8715b9d75a2
+:END:
+** Casos de Uso
+:PROPERTIES:
+:ID:       e0f4b820-e816-40bd-a6ed-e0d375b898b5
+:END:
+*** Buscar os links salvos
+:PROPERTIES:
+:ID:       25df5852-21d7-4aea-9450-39ab75e1b05f
+:END:
+*** Buscar os links com tags
+:PROPERTIES:
+:ID:       cd1df11b-95ca-4ef5-97be-8554c97f113b
+:END:
+*** Buscar os links não estando autenticado
+:PROPERTIES:
+:ID:       f61a0a18-51ac-4835-a78e-871a885fb21b
+:END:
+*** Autenticar usuário válido
+:PROPERTIES:
+:ID:       c61ce639-e239-4f41-85d7-4bbf9e34cefc
+:END:
+*** Autenticar usuário inválido
+:PROPERTIES:
+:ID:       bfec113b-a9d8-42b9-8c8a-4a65b7fafb43
+:END:
+*** Colocar em arquivo inválido
+:PROPERTIES:
+:ID:       f354362c-d740-44da-910e-e955f134dbc1
+:END:
+*** Colocar no final do arquivo
+:PROPERTIES:
+:ID:       0c621108-896e-498b-a50c-ed0b94015a14
+:END:
+*** Colocar no final do arquivo com as tags
+:PROPERTIES:
+:ID:       ced94936-148a-4104-91fc-d25a625dd0bf
+:END:
+*** Arquivar um link
+:PROPERTIES:
+:ID:       0d8d01ed-671e-4b10-bf11-60c148831d91
+:END:
+* Referencias Importantes
+:PROPERTIES:
+:ID:       483aedcd-be24-4286-b403-a783baed9e90
+:END:
+** Autenticação
+:PROPERTIES:
+:ID:       44a160e9-a0c6-443a-94e4-70676fea8efd
+:END:
+https://getpocket.com/developer/docs/authentication
+
+** API POCKET OFFICIAL 
+:PROPERTIES:
+:ID:       40fa7573-e05f-498c-a343-bffa868b5460
+:END:
+https://getpocket.com/developer/docs/v3/modify
+https://getpocket.com/developer/docs/v3/retrieve
+
