@@ -2,7 +2,7 @@
 #+AUTHOR:       Pedro Chinen
 #+EMAIL:        ph.u.chinen@gmail.com
 #+DATE-CREATED: [2017-08-22 Tue]
-#+DATE-UPDATED: [2017-08-22 Tue]
+#+DATE-UPDATED: [2018-03-26 Mon]
 
 Resumo:
 
@@ -10,45 +10,24 @@ Resumo:
 :PROPERTIES:
 :ID:       a0959dd5-3962-41a0-af2d-bd4bf7db75f1
 :END:
-** Ordem das ações que esperadas
-:PROPERTIES:
-:ID:       95293495-c646-4091-b77b-0c327fc2e7e4
-:END:
-*** Logar no Sistema Pocket
-:PROPERTIES:
-:ID:       25ccbf98-81ab-45dd-987d-e6ed0f071351
-:END:
-*** Buscar links
-:PROPERTIES:
-:ID:       17853dc6-a288-4b22-b1e9-f3a6cc79d8c4
-:END:
-*** Salvar links no arquivo
-:PROPERTIES:
-:ID:       2a9a86ac-0a52-4bc8-bad0-9ca7e4298731
-:END:
-*** Arquivar links no Sistema Pocket
-:PROPERTIES:
-:ID:       ad99ddbe-943c-4434-aa83-1d32de8b0854
-:END:
 ** Requisitos
 :PROPERTIES:
 :ID:       7b7914cb-2e2c-4720-8694-14fde85cdb98
 :END:
 
-*** Deve conseguir trazer os links salvos
+*** [RF001] Deve conseguir trazer os links salvos
 :PROPERTIES:
 :ID:       fd4f142a-4e24-4fcb-817d-881f5df3bb62
 :END:
-
-*** Depois de trazer os links salvá-los no arquivo ORG
+*** [RF002] Depois de trazer os links salvá-los no arquivo ORG
 :PROPERTIES:
 :ID:       4b5e101f-c45d-44c2-afa4-2a4932e3e436
 :END:
-*** Deve conseguir autenticar o usuário
+*** [RF003] Deve conseguir autenticar o usuário
 :PROPERTIES:
 :ID:       c83d972b-017f-495c-bf88-f7068a475ced
 :END:
-*** Deve conseguir alterar informações no Servidor Pocket
+*** [RF004] Deve conseguir alterar informações no Servidor Pocket
 :PROPERTIES:
 :ID:       98413317-6ad5-4f54-85f7-f8715b9d75a2
 :END:
@@ -56,41 +35,137 @@ Resumo:
 :PROPERTIES:
 :ID:       e0f4b820-e816-40bd-a6ed-e0d375b898b5
 :END:
-*** Buscar os links salvos
+
+*** [UC001] Autenticar Usuário
+**** Breve Descrição
 :PROPERTIES:
-:ID:       25df5852-21d7-4aea-9450-39ab75e1b05f
+:ID:       f285611e-3375-4bbd-86ea-b47df9d6f069
 :END:
-*** Buscar os links com tags
+
+O caso de uso tem como objetivo possibilitar que um usuário pegue os tokens de autenticação do sistema [[https://getpocket.com][getPocket]].
+
+**** Atores
 :PROPERTIES:
-:ID:       cd1df11b-95ca-4ef5-97be-8554c97f113b
+:ID:       7ebe20b6-bb39-465f-aead-c15876fea3d5
 :END:
-*** Buscar os links não estando autenticado
+
+- Usuário.
+
+**** Pré-Condições
 :PROPERTIES:
-:ID:       f61a0a18-51ac-4835-a78e-871a885fb21b
+:ID:       6ec3ce0c-e73e-45e1-84d9-e3e75eb0a66b
 :END:
-*** Autenticar usuário válido
+
+- Ser cadastrado no sistema [[https://getpocket.com][getPocket]].
+- Ter uma "consumer key".
+
+**** Fluxo Básico
 :PROPERTIES:
-:ID:       c61ce639-e239-4f41-85d7-4bbf9e34cefc
+:ID:       e1a7f400-122c-46bb-99f3-9932e84d4b20
 :END:
-*** Autenticar usuário inválido
+
+O ator executa a funcionalidade de autenticação.
+
+1. O Sistema pede que o usuário informe sua "consumer key" [A1].
+2. O Sistema verificará a chave fornecida [A3].
+3. O Sistema valida a chave e uma chave de autenticação é retornada.
+4. O Sistema guarda essas chaves em um arquivo padrão.
+
+**** Fluxos Alternativos
 :PROPERTIES:
-:ID:       bfec113b-a9d8-42b9-8c8a-4a65b7fafb43
+:ID:       cdfc4aea-07f6-4efc-b15e-46a5abf5a725
 :END:
-*** Colocar em arquivo inválido
+
+***** [A1] Existe arquivo esperado
 :PROPERTIES:
-:ID:       f354362c-d740-44da-910e-e955f134dbc1
+:ID:       bff5d11f-9a40-4613-a375-5599b867e9b9
 :END:
-*** Colocar no final do arquivo
+
+1. Chaves estão no arquivo [A2].
+2. Termina o caso de uso.
+
+***** [A2] Chaves não estão no arquivo esperado.
 :PROPERTIES:
-:ID:       0c621108-896e-498b-a50c-ed0b94015a14
+:ID:       80ee2a03-1fee-4b3c-b719-c21f020806ca
 :END:
-*** Colocar no final do arquivo com as tags
+
+1. Vai para o passo 1 do fluxo principal.
+
+***** [A3] A "Consumer Key" não existe.
 :PROPERTIES:
-:ID:       ced94936-148a-4104-91fc-d25a625dd0bf
+:ID:       97096cb8-ed61-4889-bdc9-4fbdeeb0478f
 :END:
-*** Arquivar um link
+
+1. Informa uma mensagem de erro.
+2. Termina o caso de uso.
+
+**** Pós Condições
 :PROPERTIES:
-:ID:       0d8d01ed-671e-4b10-bf11-60c148831d91
+:ID:       6290c5d5-65c0-4516-8bbb-0f4ce52ca679
+:END:
+
+- Arquivo com as chaves criado.
+*** [UC002] Buscar os links
+:PROPERTIES:
+:ID:       8aa01fc6-4e40-4a61-9f73-1c8036539d07
+:END:
+
+**** Breve Descrição
+:PROPERTIES:
+:ID:       f285611e-3375-4bbd-86ea-b47df9d6f069
+:END:
+
+O caso de uso tem como objetivo possibilitar que um usuário busque os links salvos no sistema [[https://getpocket.com][getPocket]].
+
+**** Atores
+:PROPERTIES:
+:ID:       7ebe20b6-bb39-465f-aead-c15876fea3d5
+:END:
+
+- Usuário
+
+**** Pré-Condições
+:PROPERTIES:
+:ID:       6ec3ce0c-e73e-45e1-84d9-e3e75eb0a66b
+:END:
+
+- O caso de uso UC001 - Autenticar Usuário - deve ter sido executado.
+- Informar em qual arquivo vai ser salvo os itens.
+
+**** Fluxo Básico
+:PROPERTIES:
+:ID:       e1a7f400-122c-46bb-99f3-9932e84d4b20
+:END:
+
+O ator executa a funcionalidade de importar os itens
+
+1. O Sistema busca uma lista com os itens salvos no [[https://getpocket.com][getPocket]].[A1].
+2. O Sistema percorre a lista e salva cada item num arquivo [A2]. 
+
+**** Fluxos Alternativos
+:PROPERTIES:
+:ID:       cdfc4aea-07f6-4efc-b15e-46a5abf5a725
+:END:
+
+***** [A1] Buscar itens com uma tag específica
+:PROPERTIES:
+:ID:       7aeabf51-58e4-4009-a617-460c4bee2339
+:END:
+
+1. Informar qual a tag deve ser procurada.
+2. Vai para o passo 2 do fluxo principal.
+
+***** [A2] Informar ao getPocket que a tag deve ser removida do item
+:PROPERTIES:
+:ID:       3dad0e84-17d6-4596-891c-d6edd4c08205
+:END:
+
+1. O Sistema percorre a lista novamente indicando para o Servidor que as tags destes itens devem ser removidas.
+2. Termina caso de uso.
+
+**** Pós Condições
+:PROPERTIES:
+:ID:       6290c5d5-65c0-4516-8bbb-0f4ce52ca679
 :END:
 * Referencias Importantes
 :PROPERTIES:
