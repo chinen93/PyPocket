@@ -34,7 +34,7 @@ This project uses a file named **~/pocketKeys.txt** in your home
 directory to save and use your pocket authorization. It saves
 your *consumer key* and you *authenticated token*.
 
-#### Finally an "Aunthenticated Token"
+#### Finally an "Authenticated Token"
 
 Execute the code:
 
@@ -53,4 +53,25 @@ This code has these flows:
   key* and the *authenticated token*. The code doesn't need to to
   anything and just finishes.
 
-### Importing Itens
+## Importing Itens
+
+Execute the code:
+
+`python3 Import.py &optional tag removeTag authenticationFile toFile`
+
+This code has :
+
+- If the `tag` is given the program will retrieve every item from
+  [pocket](https://getpocket.com/) with this tag. Default is "export
+  emacs". 
+  
+- If `removeTag` is set to `True` itens will be update. Losing the `tag`
+  expecified. Default is `False`.
+  
+- If `toFile` is defined the itens will be appended to this
+  file. Default is "~/pocketItens.org".
+
+- If `authenticationFile` is given the program will get the
+  authentication tokens from those files. Default is
+  "~/pocketKeys.txt".
+
