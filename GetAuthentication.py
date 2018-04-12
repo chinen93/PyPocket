@@ -56,19 +56,19 @@ def getKeys():
         
         # Close file
         fo.close()
-
-        # Remove special characters
-        line = line.replace("\n", "")
-
-        # Split keys
-        keys = line.split(";")
-        consumerKey = keys[0].split(":")[1]
-        authenticateKey = keys[1].split(":")[1]
         
     # Can not split keys
     except:
         consumerKey = input("Enter the consumer key: ")
         authenticateKey = None
+
+    # Remove special characters
+    line = line.replace("\n", "")
+
+    # Split keys
+    keys = line.split(";")
+    consumerKey = keys[0]
+    authenticateKey = keys[1]
 
     # return keys
     return consumerKey, authenticateKey
