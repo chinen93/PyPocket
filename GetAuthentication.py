@@ -2,17 +2,14 @@
 # IMPORTS
 #
 import requests
-
-from os.path import expanduser
+import configuration
 
 #
 # CONSTANTS
 #
 CONSUMER_KEY = ""
-FILENAME = "pocketKeys.txt"
 HEADERS = {"content-type": "application/json; charset=UTF-8",
            "X-Accept": "application/json"}
-HOME = expanduser("~/")
 REDIRECT_URL = "https://www.google.com"
 URL = "https://getpocket.com/v3/oauth/request"
 
@@ -51,7 +48,7 @@ def getKeys():
     
     try:
         # Open file to read
-        fo = open(HOME + FILENAME, "r")
+        fo = open(configuration.FILE, "r")
         line = fo.readline()
         
         # Close file
@@ -102,7 +99,7 @@ def saveKeys(consumerKey, authenticateKey):
 
     try:
         # Open file to read
-        fo = open(HOME + FILENAME, "w")
+        fo = open(configuration.FILE, "w")
         fo.write(consumerKey)
         fo.write(";")
         fo.write(authenticateKey)
