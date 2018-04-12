@@ -86,6 +86,7 @@ def main():
     # If authentication key does not exist: Authenticate consumer key
     if authenticateKey is None:
         print("Authenticating consumer key")
+        authenticate(consumerKey)
 
     # End program
     print(consumerKey, authenticateKey)
@@ -96,7 +97,25 @@ def saveKeys(consumerKey, authenticateKey):
     """
     I save the consumer and authentication key to a file
     """
-    pass
+
+    success = True
+
+    try:
+        # Open file to read
+        fo = open(HOME + FILENAME, "w")
+        fo.write(consumerKey)
+        fo.write(";")
+        fo.write(authenticateKey)
+
+        # Close file
+        fo.close()
+        
+    # Can not write
+    except:
+        success = False
+
+    return success
+
 # saveKeys()
 
 
