@@ -55,14 +55,24 @@ def getKeys():
 # getKeys()
 
 
-def getPockets(consumerKey, authenticateKey):
+def getJsonPockets(consumerKey, authenticateKey, tags = None, state = None):
     """
     I retrieve the pockets saved
     """
 
     # Data to pass to server.
     data = {"consumer_key": consumerKey, 
-            "access_token": authenticateKey}
+            "access_token": authenticateKey,
+            "detailType": "complete",
+            "sort":"title"}
+
+    # If exist a tag of itens to be retrieve
+    if(tags):
+        data["tag"] = tags
+
+    # Check the state of each 
+    if(state):
+        data["state"] = state
 
     # try: Get the response from the server.
     try:
@@ -73,8 +83,42 @@ def getPockets(consumerKey, authenticateKey):
         print("Problem to authenticate")
         exit
 
-    print(response.text)
-# getPockets()
+    # Get the list of itens from pocket
+    pocket_items = response.json()['list']
+
+    # Create a list with only the things that are needed
+    items = []
+    
+    # Foreach item from pocket items
+    for pocket_item in pocket_items:
+
+        # Get the item
+        details = pocket_items[pocket_item]
+        item = {}
+
+        # Try to get descriptions of each item
+        try:
+            # Put only the descriptions that are relevant
+            item["item_id"] = details["item_id"]
+            item["given_title"] = details['given_title']
+            item["resolved_title"] = details['resolved_title']
+            item["resolved_url"] = details['resolved_url']
+            pocket_tags = details['tags']
+
+        except KeyError:
+            pass
+
+        # Separate the tags into a list
+        item["tags"] = []
+        for tag in pocket_tags:
+            item["tags"].append(tag)
+        
+
+        # Put the item with only the needed descriptions on the return list
+        items.append(item)
+
+    return items
+# getJsonPockets()
 
 
 def main():
@@ -82,7 +126,13 @@ def main():
     I am the main function
     """
     consumerKey, authenticateKey = getKeys()
-    getPockets(consumerKey, authenticateKey)
+
+    items = getJsonPockets(consumerKey, 
+                           authenticateKey, 
+                           configuration.POCKET_TAG, 
+                           configuration.POCKET_STATE)
+    
+    print(items)
 # main()
 
 
