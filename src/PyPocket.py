@@ -8,8 +8,10 @@
 #
 # IMPORTS
 #
-import configuration
+import Configuration
 import requests
+
+from Keys import Keys
 
 
 #
@@ -24,35 +26,6 @@ URL_RETRIEVE = "https://getpocket.com/v3/get"
 #
 # CODE
 #
-def getKeys():
-    """
-    I get the consumer and authentication keys from a file
-    """
-
-    try:
-        # Open file to read
-        fo = open(configuration.FILE, "r")
-        line = fo.readline()
-
-        # Close file
-        fo.close()
-
-    # Can not split keys
-    except:
-        print("Keys couldn't be found. Create them with GetAuthentication.py")
-        exit
-
-    # Remove special characters
-    line = line.replace("\n", "")
-
-    # Split keys
-    keys = line.split(";")
-    consumerKey = keys[0]
-    authenticateKey = keys[1]
-
-    # return keys
-    return consumerKey, authenticateKey
-# getKeys()
 
 
 def getJsonPockets(consumerKey, authenticateKey, param):
@@ -148,7 +121,13 @@ def main():
     """
     I am the main function
     """
-    consumerKey, authenticateKey = getKeys()
+
+    # Get keys
+    keys = Keys()
+
+    # If keys' file don't exist: abort program
+    if not keys.getKeys():
+        exit
 
 
     # Parameters for retrieving itens from pocket
@@ -159,13 +138,13 @@ def main():
     retrieveParam["favorite"] = None
     retrieveParam["search"] = None
     retrieveParam["sort"] = "title"
-    retrieveParam["state"] = configuration.POCKET_STATE
-    retrieveParam["tag"] = configuration.POCKET_TAG
+    retrieveParam["state"] = Configuration.POCKET_STATE
+    retrieveParam["tag"] = Configuration.POCKET_TAG
 
     retrieveParam["since"] = None
 
-    items = getJsonPockets(consumerKey,
-                           authenticateKey,
+    items = getJsonPockets(keys.consumerKey,
+                           keys.accessToken,
                            retrieveParam)
 
     print(items)

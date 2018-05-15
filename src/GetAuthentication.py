@@ -1,9 +1,11 @@
 #
 # IMPORTS
 #
-import configuration
+# import configuration            
 import requests
 import webbrowser
+
+from Keys import Keys
 
 
 #
@@ -66,46 +68,11 @@ def authenticate(consumerKey):
         exit
     
     # Get authentication key
-    authenticationKey = response.json()["access_token"]
-
-    # Save it into a file
-    saveKeys(consumerKey, authenticationKey)
+    accessToken = response.json()["access_token"]
     
     # return the authentication key
-    return authenticationKey
+    return accessToken
 # authenticate()
-
-
-
-def getKeys():
-    """
-    I get the consumer and authentication keys from a file
-    """
-    
-    try:
-        # Open file to read
-        fo = open(configuration.FILE, "r")
-        line = fo.readline()
-        
-        # Close file
-        fo.close()
-
-        # Remove special characters
-        line = line.replace("\n", "")
-        
-        # Split keys
-        keys = line.split(";")
-        consumerKey = keys[0]
-        authenticateKey = keys[1]
-        
-    # Can not split keys
-    except:
-        consumerKey = input("Enter the consumer key: ")
-        authenticateKey = None
-
-    # return keys
-    return consumerKey, authenticateKey
-# getKeys()
 
 
 def main():
@@ -114,43 +81,24 @@ def main():
     """
 
     # Get keys
-    consumerKey, authenticateKey =  getKeys()
+    keys = Keys()
 
-    # If authentication key does not exist: Authenticate consumer key
-    if authenticateKey is None:
+    # If keys' file don't exist:
+    if not keys.getKeys():
+
+        # Ask for the consumer key
+        keys.consumerKey = input("Enter the consumer key: ")
+
+        # Authenticate it
         print("Authenticating consumer key")
-        authenticateKey = authenticate(consumerKey)
+        keys.accessToken = authenticate(consumerKey)
 
-    # End program
-    print(consumerKey, authenticateKey)
+        # Update the keys' file
+        keys.saveKeys()
+
+    # Print keys to user
+    keys.printKeys()
 # main()
-
-
-def saveKeys(consumerKey, authenticateKey):
-    """
-    I save the consumer and authentication key to a file
-    """
-
-    success = True
-
-    try:
-        # Open file to read
-        fo = open(configuration.FILE, "w")
-        fo.write(consumerKey)
-        fo.write(";")
-        fo.write(authenticateKey)
-
-        # Close file
-        fo.close()
-        
-    # Can not write
-    except:
-        success = False
-
-    return success
-
-# saveKeys()
-
 
 if __name__ == '__main__':
     main()
