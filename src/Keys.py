@@ -22,7 +22,7 @@ class Keys:
         them don't exist.
         """
 
-        self.consumerKeys = None
+        self.consumerKey = None
         self.accessToken = None
     # __init__()
 
@@ -50,11 +50,8 @@ class Keys:
 
         try:
             # Open file to read
-            fo = open(Configuration.FILE, "r")
-            line = fo.readline()
-        
-            # Close file
-            fo.close()
+            with open(Configuration.FILE, "r") as fo:
+                line = fo.readline()
 
             # Remove special characters
             line = line.replace("\n", "")
@@ -95,16 +92,13 @@ class Keys:
 
         try:
             # Open file to read
-            fo = open(Configuration.FILE, "w")
-            fo.write(self.consumerKey)
-            fo.write(";")
-            fo.write(self.authenticateKey)
+            with open(Configuration.FILE, "w") as fo:
+                fo.write(self.consumerKey)
+                fo.write(";")
+                fo.write(self.authenticateKey)
 
-            # Close file
-            fo.close()
-        
-            # Can not write
         except:
+            # Can not write
             success = False
 
         return success
