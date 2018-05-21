@@ -35,7 +35,7 @@ class Keys:
         :rtype: Boolean
         """
         return self.accessToken != None
-        
+
     # hasKeys()
 
 
@@ -55,12 +55,20 @@ class Keys:
 
             # Remove special characters
             line = line.replace("\n", "")
-        
+
             # Split keys
             keys = line.split(";")
+
+            # Get keys from string
             self.consumerKey = keys[0]
             self.accessToken = keys[1]
-        
+
+            # If any keys is invalid, return everybody to None
+            if len(keys[0]) == 0 or \
+               len(keys[1]) == 0:
+                self.consumerKey = None
+                self.accessToken = None
+
             # Can not split keys
         except:
             self.consumerKey = None
@@ -76,8 +84,8 @@ class Keys:
         """
         I print the keys
         """
-        print(self.consumerKey, self.accessToken)
-    
+        print("[",self.consumerKey, "," , self.accessToken,"]")
+
     # printKeys()
 
 
@@ -93,9 +101,7 @@ class Keys:
         try:
             # Open file to read
             with open(Configuration.FILE, "w") as fo:
-                fo.write(self.consumerKey)
-                fo.write(";")
-                fo.write(self.authenticateKey)
+                fo.write("{0};{1}".format(self.consumerKey, self.accessToken))
 
         except:
             # Can not write
@@ -105,5 +111,3 @@ class Keys:
     # saveKeys()
 
 # class()
-    
-
