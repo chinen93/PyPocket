@@ -13,12 +13,16 @@ HOME = expanduser("~/")
 
 FILE = HOME + FILENAME
 
-# Tag to import from Pocket
-POCKET_TAG = "export emacs"
-
-# State of the items that are going to be imported
-POCKET_STATE = "all"
-
+# Retrieve params
+RETRIEVE_PARAM_CONTENT_TYPE = None
+RETRIEVE_PARAM_COUNT = None
+RETRIEVE_PARAM_DETAIL_TYPE = None
+RETRIEVE_PARAM_FAVORITE = None
+RETRIEVE_PARAM_SEARCH = None
+RETRIEVE_PARAM_SORT = None
+RETRIEVE_PARAM_STATE = "all"
+RETRIEVE_PARAM_TAG = "export emacs"
+RETRIEVE_PARAM_SINCE = None
 #
 # CODE
 #

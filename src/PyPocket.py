@@ -12,6 +12,7 @@ import Configuration
 import requests
 
 from Keys import Keys
+from RetrieveParam import RetrieveParam
 
 
 #
@@ -131,21 +132,26 @@ def main():
 
 
     # Parameters for retrieving itens from pocket
-    retrieveParam = {}
-    retrieveParam["contentType"] = None
-    retrieveParam["count"] = None
-    retrieveParam["detailType"] = "complete"
-    retrieveParam["favorite"] = None
-    retrieveParam["search"] = None
-    retrieveParam["sort"] = "title"
-    retrieveParam["state"] = Configuration.POCKET_STATE
-    retrieveParam["tag"] = Configuration.POCKET_TAG
+    # retrieveParam = {}
+    # retrieveParam["contentType"] = None
+    # retrieveParam["count"] = None
+    # retrieveParam["detailType"] = "complete"
+    # retrieveParam["favorite"] = None
+    # retrieveParam["search"] = None
+    # retrieveParam["sort"] = "title"
+    # retrieveParam["state"] = Configuration.POCKET_STATE
+    # retrieveParam["tag"] = Configuration.POCKET_TAG
 
-    retrieveParam["since"] = None
+    # retrieveParam["since"] = None
+
+    retrieveParam = RetrieveParam()
+    data = retrieveParam.data()
+
+    print(data)
 
     items = getJsonPockets(keys.consumerKey,
                            keys.accessToken,
-                           retrieveParam)
+                           data)
 
     print(items)
 # main()
