@@ -13,6 +13,7 @@ import requests
 
 from Keys import Keys
 from RetrieveParam import RetrieveParam
+from PocketItem import PocketItem
 
 
 #
@@ -29,35 +30,16 @@ URL_RETRIEVE = "https://getpocket.com/v3/get"
 #
 
 
-def getJsonPockets(consumerKey, authenticateKey, param):
+def getJsonPockets(keys, data):
     """
     I retrieve the pockets saved
     """
 
     # Data to pass to server.
-    data = {"consumer_key": consumerKey,
-            "access_token": authenticateKey}
+    data["consumer_key"] = keys.consumerKey
+    data["access_token"] = keys.accessToken
 
-    # Add parameters 
-    if(param["contentType"]):
-        data["contentType"] = param["contentType"]
-    if(param["count"]):
-        data["count"] = param["count"]
-    if(param["detailType"]):
-        data["detailType"] = param["detailType"]
-    if(param["favorite"]):
-        data["favorite"] = param["favorite"]
-    if(param["state"]):
-        data["state"] = param["state"]
-    if(param["sort"]):
-        data["sort"] = param["sort"]
-    if(param["search"]):
-        data["search"] = param["search"]
-    if(param["tag"]):
-        data["tag"] = param["tag"]
-
-    if(param["since"]):
-        data["since"] = param["since"]
+    print(data)
 
     # try: Get the response from the server.
     try:
@@ -79,40 +61,12 @@ def getJsonPockets(consumerKey, authenticateKey, param):
 
         # Get the item
         details = pocket_items[pocket_item]
-        item = {}
 
-        # Try to get descriptions of each item
-        try:
-            # Put only the descriptions that are relevant
-            # item["authors"] = details["authors"]
-            # item["excerpt"] = details["excerpt"]
-            # item["favorite"] = details["favorite"]
-            item["given_title"] = details['given_title']
-            # item["given_url"] = details["given_url"]
-            # item["has_image"] = details["has_image"]
-            # item["has_video"] = details["has_video"]
-            # item["images"] = details["images"]
-            # item["is_article"] = details["is_article"]
-            item["item_id"] = details["item_id"]
-            # item["resolved_id"] = details["resolved_id"]
-            item["resolved_title"] = details['resolved_title']
-            item["resolved_url"] = details['resolved_url']
-            # item["status"] = details["status"]
-            # item["videos"] = details["videos"]
-            # item["word_count"] = details["word_count"]
-            pocket_tags = details['tags']
-
-        except KeyError:
-            pass
-
-        # Separate the tags into a list
-        item["tags"] = []
-        for tag in pocket_tags:
-            item["tags"].append(tag)
-
+        # Create Pocket Item
+        pocketItem = PocketItem(details)
 
         # Put the item with only the needed descriptions on the return list
-        items.append(item)
+        items.append(pocketItem)
 
     return items
 # getJsonPockets()
@@ -128,30 +82,14 @@ def main():
 
     # If keys' file don't exist: abort program
     if not keys.getKeys():
-        exit
-
+        print("Keys couldn't be loaded!")
+        exit()
 
     # Parameters for retrieving itens from pocket
-    # retrieveParam = {}
-    # retrieveParam["contentType"] = None
-    # retrieveParam["count"] = None
-    # retrieveParam["detailType"] = "complete"
-    # retrieveParam["favorite"] = None
-    # retrieveParam["search"] = None
-    # retrieveParam["sort"] = "title"
-    # retrieveParam["state"] = Configuration.POCKET_STATE
-    # retrieveParam["tag"] = Configuration.POCKET_TAG
-
-    # retrieveParam["since"] = None
-
     retrieveParam = RetrieveParam()
     data = retrieveParam.data()
 
-    print(data)
-
-    items = getJsonPockets(keys.consumerKey,
-                           keys.accessToken,
-                           data)
+    items = getJsonPockets(keys, data)
 
     print(items)
 # main()
