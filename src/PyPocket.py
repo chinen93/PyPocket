@@ -11,6 +11,8 @@
 import Configuration
 import requests
 
+from PocketLogger import pocketLogger
+
 from Keys import Keys
 from RetrieveParam import RetrieveParam
 from PocketItem import PocketItem
@@ -25,7 +27,6 @@ HEADERS = {"content-type": "application/json; charset=UTF-8",
 URL_MODIFY = "https://getpocket.com/v3/send"
 URL_RETRIEVE = "https://getpocket.com/v3/get"
 
-
 #
 # CODE
 #
@@ -39,7 +40,7 @@ def getJsonPockets(keys, data):
     data["consumer_key"] = keys.consumerKey
     data["access_token"] = keys.accessToken
 
-    print(data)
+    pocketLogger.info(data)
 
     # try: Get the response from the server.
     try:
@@ -47,18 +48,18 @@ def getJsonPockets(keys, data):
 
     # Error: Couldn't get response, exit.
     except:
-        print("Problem to authenticate")
+        pocketLogger.error("Problem to authenticate")
         exit()
 
     # try: Get the list of itens from pocket.
     try:
-        print(response.json()['since'])
+        pocketLogger.debug(response.json()['since'])
         pocket_items = response.json()['list']
 
     # Error: Couldn't get data from server response, exit.
     except:
-        print(response)
-        print("Problem with retrieved data")
+        pocketLogger.debug(response)
+        pocketLogger.error("Problem with retrieved data")
         exit()
 
     # Create a list with only the things that are needed.
@@ -100,8 +101,7 @@ def removeTagFromItem(keys, items):
 
     # Put actions into the post data.
     data["actions"] = modifyParam.actions
-
-    # print(data)
+    pocketLogger.debug(data)
 
     # try: Get the response from the server.
     try:
@@ -109,14 +109,13 @@ def removeTagFromItem(keys, items):
 
     # Error: Couldn't get response, exit.
     except:
-        print("Problem to remove tags")
+        pocketLogger.error("Problem to remove tags")
         exit()
 
     # Exit normaly.
-    print("Items were updated")
+    pocketLogger.info("Items updated")
     
 # removeTagFromItem()
-
 
 
 def main():
@@ -129,7 +128,7 @@ def main():
 
     # If keys' file don't exist: abort program.
     if not keys.getKeys():
-        print("Keys couldn't be loaded!")
+        pocketLogger.info("Keys couldn't be loaded!")
         exit()
 
     # Parameters for retrieving itens from pocket.
@@ -138,6 +137,11 @@ def main():
 
     # Get items from Pocket API.
     items = getJsonPockets(keys, data)
+
+    # If there's no itens to be saved exit
+    if len(items) == 0:
+        pocketLogger.info("No itens to be saved")
+        exit()
     
     # Save each item to the file.
     for item in items:
@@ -146,7 +150,8 @@ def main():
     # Use the Pocket API to remove the retrieve tag.
     removeTagFromItem(keys, items)
 
-    # print(items)
+    # log items
+    pocketLogger.debug(items)
 # main()
 
 

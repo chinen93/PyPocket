@@ -3,6 +3,8 @@
 #
 import Configuration
 
+from PocketLogger import pocketLogger
+
 #
 # CONSTANTS
 #
@@ -51,6 +53,7 @@ class Keys:
         try:
             # Open file to read
             with open(Configuration.FILENAME, "r") as fo:
+                pocketLogger.info(Configuration.FILENAME + " was opened to read")
                 line = fo.readline()
 
             # Remove special characters
@@ -66,11 +69,13 @@ class Keys:
             # If any keys is invalid, return everybody to None
             if len(keys[0]) == 0 or \
                len(keys[1]) == 0:
+                pocketLogger.info("Keys are invalid, return them to None")
                 self.consumerKey = None
                 self.accessToken = None
 
             # Can not split keys
         except:
+            pocketLogger.error("Couldn't get the keys")
             self.consumerKey = None
             self.accessToken = None
 
@@ -100,6 +105,7 @@ class Keys:
         try:
             # Open file to read
             with open(Configuration.FILENAME, "w") as fo:
+                pocketLogger.info(Configuration.FILENAME + " was opened to write")
                 fo.write("{0};{1}".format(self.consumerKey, self.accessToken))
 
         except:

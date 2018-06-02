@@ -1,7 +1,7 @@
 #
 # IMPORTS
 #
-
+from PocketLogger import pocketLogger
 
 #
 # CONSTANTS
@@ -32,6 +32,9 @@ class ModifyParam:
             "action": actionString,
             "item_id": item.item_id
         }
+
+        pocketLogger.debug("Action" + action)
+
         self.actions.append(action)
     # _createAction()
 
@@ -45,6 +48,9 @@ class ModifyParam:
             "tags": tags,
             "item_id": item.item_id
         }
+
+        pocketLogger.debug("Tag action" + action)
+
         self.actions.append(action)
     # _createTagAction()
 
