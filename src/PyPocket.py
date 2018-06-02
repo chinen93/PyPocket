@@ -30,7 +30,6 @@ URL_RETRIEVE = "https://getpocket.com/v3/get"
 # CODE
 #
 
-
 def getJsonPockets(keys, data):
     """
     I retrieve the pockets saved
@@ -46,31 +45,78 @@ def getJsonPockets(keys, data):
     try:
         response = requests.post(URL_RETRIEVE, headers=HEADERS, json=data)
 
-    # Error: Print error message and leave.
+    # Error: Couldn't get response, exit.
     except:
         print("Problem to authenticate")
-        exit
+        exit()
 
-    # Get the list of itens from pocket
-    pocket_items = response.json()['list']
+    # try: Get the list of itens from pocket.
+    try:
+        print(response.json()['since'])
+        pocket_items = response.json()['list']
 
-    # Create a list with only the things that are needed
+    # Error: Couldn't get data from server response, exit.
+    except:
+        print(response)
+        print("Problem with retrieved data")
+        exit()
+
+    # Create a list with only the things that are needed.
     items = []
 
-    # Foreach item from pocket items
+    # Foreach item from pocket items.
     for pocket_item in pocket_items:
 
-        # Get the item
+        # Get the item.
         details = pocket_items[pocket_item]
 
-        # Create Pocket Item
+        # Create Pocket Item.
         pocketItem = PocketItem(details)
 
-        # Put the item with only the needed descriptions on the return list
+        # Put the item with only the needed descriptions on the return list.
         items.append(pocketItem)
 
     return items
 # getJsonPockets()
+
+
+
+def removeTagFromItem(keys, items):
+    """
+    I remove a tag from the item
+    """
+    
+    # Create post data and put the keys to access the API.
+    data = {}
+    data["consumer_key"] = keys.consumerKey
+    data["access_token"] = keys.accessToken
+
+    # Create parameter manager.
+    modifyParam = ModifyParam()
+
+    # Add action to remove tag.
+    for item in items:
+        modifyParam.tags_remove(item, Configuration.RET_PARAM_TAG)
+
+    # Put actions into the post data.
+    data["actions"] = modifyParam.actions
+
+    # print(data)
+
+    # try: Get the response from the server.
+    try:
+        response = requests.post(URL_MODIFY, headers=HEADERS, json=data)
+
+    # Error: Couldn't get response, exit.
+    except:
+        print("Problem to remove tags")
+        exit()
+
+    # Exit normaly.
+    print("Items were updated")
+    
+# removeTagFromItem()
+
 
 
 def main():
@@ -81,18 +127,26 @@ def main():
     # Get keys
     keys = Keys()
 
-    # If keys' file don't exist: abort program
+    # If keys' file don't exist: abort program.
     if not keys.getKeys():
         print("Keys couldn't be loaded!")
         exit()
 
-    # Parameters for retrieving itens from pocket
+    # Parameters for retrieving itens from pocket.
     retrieveParam = RetrieveParam()
     data = retrieveParam.data()
 
+    # Get items from Pocket API.
     items = getJsonPockets(keys, data)
+    
+    # Save each item to the file.
+    for item in items:
+        item.saveToFile(Configuration.FILENAME_TO_SAVE)
 
-    print(items)
+    # Use the Pocket API to remove the retrieve tag.
+    removeTagFromItem(keys, items)
+
+    # print(items)
 # main()
 
 
