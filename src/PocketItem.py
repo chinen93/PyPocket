@@ -34,11 +34,32 @@ class PocketItem:
         self.videos         = details["videos"]
         self.word_count     = details["word_count"]
 
-        pocket_tags = details["word_count"]
+        pocket_tags = details["tags"]
         self.tags = []
 
         for tag in pocket_tags:
             self.tags.append(tag)
     # __init__()
+
+    
+    def toString(self):
+        """
+        I return a string to be inserted into a file
+        """
+    
+        pattern = "* {}\n  [[{}]]"
+        string = pattern.format(self.resolved_title, self.resolved_url)
+
+        return string
+    # toString()
+
+
+    def saveToFile(self, filename):
+        """
+        I append myself to a file
+        """
+        with open("filename", "a") as f:
+            f.write(self.toString())
+    # saveToFile()
 
 # PocketItem
