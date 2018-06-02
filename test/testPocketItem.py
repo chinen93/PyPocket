@@ -24,26 +24,24 @@ class unitPocketItem(unittest.TestCase):
 
     def setUp(self):
         """Set up things for every test"""
-        details = {}
-        details["authors"]        = None
-        details["excerpt"]        = None
-        details["favorite"]       = None
-        details["given_title"]    = None
-        details["given_url"]      = None
-        details["has_image"]      = None
-        details["has_video"]      = None
-        details["images"]         = None
-        details["is_article"]     = None
-        details["item_id"]        = None
-        details["resolved_id"]    = None
-        details["resolved_title"] = "TEST TITLE"
-        details["resolved_url"]   = "TEST URL"
-        details["status"]         = None
-        details["videos"]         = None
-        details["word_count"]     = None
-        details["tags"]           = []
-
-        self.pocket = PocketItem(details)
+        self.details = {}
+        self.details["authors"]        = None
+        self.details["excerpt"]        = None
+        self.details["favorite"]       = None
+        self.details["given_title"]    = None
+        self.details["given_url"]      = None
+        self.details["has_image"]      = None
+        self.details["has_video"]      = None
+        self.details["images"]         = None
+        self.details["is_article"]     = None
+        self.details["item_id"]        = None
+        self.details["resolved_id"]    = None
+        self.details["resolved_title"] = "TEST TITLE"
+        self.details["resolved_url"]   = "TEST URL"
+        self.details["status"]         = None
+        self.details["videos"]         = None
+        self.details["word_count"]     = None
+        self.details["tags"]           = []
     # setUp()
 
 
@@ -53,12 +51,24 @@ class unitPocketItem(unittest.TestCase):
     # tearDown()
     
 
-    def testToString(self):
+    def testShouldToString(self):
         """Should return a string to be inserted into a file"""
+        pocket = PocketItem(self.details)
 
-        string = self.pocket.toString()
+        string = pocket.toString()
         
         self.assertEqual(string, "* TEST TITLE\n  [[TEST URL]]")
-    # testToString()
+    # testShouldToString()
+
+
+    def testShouldCreateItemEvenWithNotAllParameters(self):
+        """Should create item even with not all parameters"""
+        
+        del(self.details["resolved_title"])
+        pocket = PocketItem(self.details)
+
+        self.assertIsInstance(pocket, PocketItem)
+    # testShouldCreateItemEvenWithNotAllParameters()
+
     
 # unitPocketItem

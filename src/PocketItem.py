@@ -17,28 +17,60 @@ class PocketItem:
         """
         I initialize a pocket item
         """
-        self.authors        = details["authors"]
-        self.excerpt        = details["excerpt"]
-        self.favorite       = details["favorite"]
-        self.given_title    = details["given_title"]
-        self.given_url      = details["given_url"]
-        self.has_image      = details["has_image"]
-        self.has_video      = details["has_video"]
-        self.images         = details["images"]
-        self.is_article     = details["is_article"]
-        self.item_id        = details["item_id"]
-        self.resolved_id    = details["resolved_id"]
-        self.resolved_title = details["resolved_title"]
-        self.resolved_url   = details["resolved_url"]
-        self.status         = details["status"]
-        self.videos         = details["videos"]
-        self.word_count     = details["word_count"]
+        if "authors" in details:
+            self.authors        = details["authors"]
 
-        pocket_tags = details["tags"]
-        self.tags = []
+        if "excerpt" in details:
+            self.excerpt        = details["excerpt"]
 
-        for tag in pocket_tags:
-            self.tags.append(tag)
+        if "favorite" in details:
+            self.favorite       = details["favorite"]
+
+        if "given_title" in details:
+            self.given_title    = details["given_title"]
+
+        if "given_url" in details:
+            self.given_url      = details["given_url"]
+
+        if "has_image" in details:
+            self.has_image      = details["has_image"]
+
+        if "has_video" in details:
+            self.has_video      = details["has_video"]
+
+        if "images" in details:
+            self.images         = details["images"]
+
+        if "is_article" in details:
+            self.is_article     = details["is_article"]
+
+        if "item_id" in details:
+            self.item_id        = details["item_id"]
+
+        if "resolved_id" in details:
+            self.resolved_id    = details["resolved_id"]
+
+        if "resolved_title" in details:
+            self.resolved_title = details["resolved_title"]
+
+        if "resolved_url" in details:
+            self.resolved_url   = details["resolved_url"]
+
+        if "status" in details:
+            self.status         = details["status"]
+
+        if "videos" in details:
+            self.videos         = details["videos"]
+
+        if "word_count" in details:
+            self.word_count     = details["word_count"]
+
+        if "tags" in details:
+            pocket_tags = details["tags"]
+            self.tags = []
+
+            for tag in pocket_tags:
+                self.tags.append(tag)
     # __init__()
 
     
