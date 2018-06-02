@@ -57,13 +57,13 @@ class unitTestClass(unittest.TestCase):
 
         details = {
             "item_id": 1,
-            "tags": ("test", "test1")
+            "tags": ["test", "test1"]
         }
         pi = PocketItem(details)
 
         self.assertEqual(len(self.mp.actions), 0)
 
-        self.mp._createTagAction(pi, "test")
+        self.mp._createTagAction(pi, "test", ["test", "test1"])
 
         self.assertEqual(len(self.mp.actions), 1)
         self.assertEqual(self.mp.actions[0]["action"], "test")

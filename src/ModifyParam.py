@@ -36,13 +36,13 @@ class ModifyParam:
     # _createAction()
 
 
-    def _createTagAction(self, item, actionString):
+    def _createTagAction(self, item, actionString, tags):
         """
         I create a generic tag action
         """
         action = {
             "action": actionString,
-            "tags": item.tags,
+            "tags": tags,
             "item_id": item.item_id
         }
         self.actions.append(action)
@@ -89,43 +89,43 @@ class ModifyParam:
     # unfavorite()
 
 
-    def tags_add(self, item):
+    def tags_add(self, item, tags):
         """
         I create a tags_add action
         """
-        self._createTagAction(item, "tags_add")
+        self._createTagAction(item, "tags_add", tags)
     # tags_add()
 
 
-    def tags_clear(self, item):
+    def tags_clear(self, item, tags):
         """
         I create a tags_clear action
         """
-        self._createTagAction(item, "tags_clear")
+        self._createTagAction(item, "tags_clear", tags)
     # tags_clear()
 
 
-    def tags_remove(self, item):
+    def tags_remove(self, item, tags):
         """
         I create a tags_remove action
         """
-        self._createTagAction(item, "tags_remove")
+        self._createTagAction(item, "tags_remove", tags)
     # tags_remove()
 
 
-    def tags_rename(self, item):
+    def tags_rename(self, item, tags):
         """
         I create a tags_rename action
         """
-        self._createTagAction(item, "tags_rename")
+        self._createTagAction(item, "tags_rename", tags)
     # tags_rename()
 
 
-    def tags_replace(self, item):
+    def tags_replace(self, item, tags):
         """
         I create a tags_replace action
         """
-        self._createTagAction(item, "tags_replace")
+        self._createTagAction(item, "tags_replace", tags)
     # tags_replace()
 
 # ModifyParam
