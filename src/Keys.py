@@ -50,7 +50,7 @@ class Keys:
 
         try:
             # Open file to read
-            with open(Configuration.FILE, "r") as fo:
+            with open(Configuration.FILENAME, "r") as fo:
                 line = fo.readline()
 
             # Remove special characters
@@ -99,7 +99,7 @@ class Keys:
 
         try:
             # Open file to read
-            with open(Configuration.FILE, "w") as fo:
+            with open(Configuration.FILENAME, "w") as fo:
                 fo.write("{0};{1}".format(self.consumerKey, self.accessToken))
 
         except:

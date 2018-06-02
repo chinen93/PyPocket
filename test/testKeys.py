@@ -52,7 +52,7 @@ class testKeys(unittest.TestCase):
         """Should fail to get keys from invalid file"""
 
         # Change file where will get keys from
-        Configuration.FILE = FILE_WITH_INVALID_KEYS
+        Configuration.FILENAME = FILE_WITH_INVALID_KEYS
 
         # Get keys from this file
         self.keys.getKeys()
@@ -67,7 +67,7 @@ class testKeys(unittest.TestCase):
         """Should fail to get keys from anywhere"""
 
         # Change file where will get keys from
-        Configuration.FILE = FILE_WITH_NO_KEYS
+        Configuration.FILENAME = FILE_WITH_NO_KEYS
 
         # Get keys from this file
         self.keys.getKeys()
@@ -82,7 +82,7 @@ class testKeys(unittest.TestCase):
         """Should get keys from file"""
 
         # Change file where will get keys from
-        Configuration.FILE = FILE_WITH_VALID_KEYS
+        Configuration.FILENAME = FILE_WITH_VALID_KEYS
         
         # Get keys from this file
         self.keys.getKeys()
@@ -97,7 +97,7 @@ class testKeys(unittest.TestCase):
         """Should save keys"""
         
         # Change file where will get keys from
-        Configuration.FILE = FILE_SAVE_KEYS
+        Configuration.FILENAME = FILE_SAVE_KEYS
 
         # Get keys from this file
         self.keys.getKeys()

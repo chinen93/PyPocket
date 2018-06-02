@@ -79,7 +79,7 @@ class PocketItem:
         I return a string to be inserted into a file
         """
 
-        pattern = "* {}\n  [[{}]]"
+        pattern = "* {}\n  [[{}]]\n"
         string = pattern.format(self.resolved_title, self.resolved_url)
 
         return string
@@ -90,7 +90,7 @@ class PocketItem:
         """
         I append myself to a file
         """
-        with open("filename", "a") as f:
+        with open(filename, "a+") as f:
             f.write(self.toString())
     # saveToFile()
 

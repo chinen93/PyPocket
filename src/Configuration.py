@@ -8,10 +8,13 @@ from os.path import expanduser
 #
 
 # Where to get and save the keys to be used on this script
-FILENAME = "pocketKeys.txt"
 HOME = expanduser("~/")
 
-FILE = HOME + FILENAME
+FILE_TO_SAVE = "pocketItems.org"
+FILENAME_TO_SAVE = HOME + FILE_TO_SAVE
+
+FILE = "pocketKeys.txt"
+FILENAME = HOME + FILE
 
 # Retrieve params
 RET_PARAM_CONTENT_TYPE = None

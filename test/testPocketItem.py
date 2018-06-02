@@ -57,7 +57,7 @@ class unitPocketItem(unittest.TestCase):
 
         string = pocket.toString()
 
-        self.assertEqual(string, "* TEST TITLE\n  [[TEST URL]]")
+        self.assertEqual(string, "* TEST TITLE\n  [[TEST URL]]\n")
     # testShouldToString()
 
 

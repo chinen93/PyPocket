@@ -91,7 +91,7 @@ def main():
 
         # Authenticate it
         print("Authenticating consumer key")
-        keys.accessToken = authenticate(consumerKey)
+        keys.accessToken = authenticate(keys.consumerKey)
 
         # Update the keys' file
         keys.saveKeys()
