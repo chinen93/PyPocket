@@ -49,26 +49,26 @@ class unitPocketItem(unittest.TestCase):
         """Tear Down things for every test"""
         pass
     # tearDown()
-    
+
 
     def testShouldToString(self):
         """Should return a string to be inserted into a file"""
         pocket = PocketItem(self.details)
 
         string = pocket.toString()
-        
+
         self.assertEqual(string, "* TEST TITLE\n  [[TEST URL]]")
     # testShouldToString()
 
 
     def testShouldCreateItemEvenWithNotAllParameters(self):
         """Should create item even with not all parameters"""
-        
+
         del(self.details["resolved_title"])
         pocket = PocketItem(self.details)
 
         self.assertIsInstance(pocket, PocketItem)
     # testShouldCreateItemEvenWithNotAllParameters()
 
-    
+
 # unitPocketItem

@@ -32,7 +32,7 @@ class unitTestClass(unittest.TestCase):
         """Tear Down things for every test"""
         pass
     # tearDown()
-    
+
 
     def testShouldCreateAction(self):
         """Should create an action"""
@@ -45,7 +45,7 @@ class unitTestClass(unittest.TestCase):
         self.assertEqual(len(self.mp.actions), 0)
 
         self.mp._createAction(pi, "test")
-        
+
         self.assertEqual(len(self.mp.actions), 1)
         self.assertEqual(self.mp.actions[0]["action"], "test")
         self.assertEqual(self.mp.actions[0]["item_id"], pi.item_id)
@@ -64,7 +64,7 @@ class unitTestClass(unittest.TestCase):
         self.assertEqual(len(self.mp.actions), 0)
 
         self.mp._createTagAction(pi, "test")
-        
+
         self.assertEqual(len(self.mp.actions), 1)
         self.assertEqual(self.mp.actions[0]["action"], "test")
         self.assertEqual(self.mp.actions[0]["item_id"], pi.item_id)
@@ -72,5 +72,5 @@ class unitTestClass(unittest.TestCase):
         for tag in details["tags"]:
             self.assertTrue(tag in self.mp.actions[0]["tags"])
     # testShouldCreateTagAction()
-    
+
 # unitTestClass

@@ -73,12 +73,12 @@ class PocketItem:
                 self.tags.append(tag)
     # __init__()
 
-    
+
     def toString(self):
         """
         I return a string to be inserted into a file
         """
-    
+
         pattern = "* {}\n  [[{}]]"
         string = pattern.format(self.resolved_title, self.resolved_url)
 

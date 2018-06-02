@@ -23,7 +23,7 @@ class ModifyParam:
         self.actions = []
     #__init__()
 
-    
+
     def _createAction(self, item, actionString):
         """
         I create a generic action
@@ -32,7 +32,7 @@ class ModifyParam:
             "action": actionString,
             "item_id": item.item_id
         }
-        self.actions.append(action)        
+        self.actions.append(action)
     # _createAction()
 
 
@@ -45,7 +45,7 @@ class ModifyParam:
             "tags": item.tags,
             "item_id": item.item_id
         }
-        self.actions.append(action)        
+        self.actions.append(action)
     # _createTagAction()
 
 

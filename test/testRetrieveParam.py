@@ -30,7 +30,7 @@ class testRetrieveParam(unittest.TestCase):
         """Tear Down things for every test"""
         pass
     # tearDown()
-    
+
 
     def testNoData(self):
         """Should return nothing"""
@@ -46,7 +46,7 @@ class testRetrieveParam(unittest.TestCase):
         Configuration.RET_PARAM_SINCE        = None
 
         rp = RetrieveParam()
-        
+
         ret = rp.data()
         self.assertEqual(ret, {})
     # testNoData()
@@ -54,7 +54,7 @@ class testRetrieveParam(unittest.TestCase):
 
     def testData(self):
         """Should return some data"""
-        
+
         Configuration.RET_PARAM_CONTENT_TYPE = 1
         Configuration.RET_PARAM_COUNT        = 2
         Configuration.RET_PARAM_DETAIL_TYPE  = None
