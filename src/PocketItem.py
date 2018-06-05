@@ -74,13 +74,35 @@ class PocketItem:
     # __init__()
 
 
+    def tagsToString(self):
+        """
+        I transform the tags into a string
+        """
+
+        # If there is no tags, return an empty string.
+        if len(self.tags) == 0:
+            return ""
+
+        # For each tag append it to the end of the tags' string.
+        # if the tag has spaces transform it to underscore
+        string = " :"
+        for tag in self.tags:
+            string += tag.replace(" ", "_") + ":"
+
+        return string
+    # tagsToString()
+
+
     def toString(self):
         """
         I return a string to be inserted into a file
         """
 
-        pattern = "* {}\n  [[{}]]\n"
-        string = pattern.format(self.resolved_title, self.resolved_url)
+        pattern = "* {}{}\n  [[{}]]\n"
+        tagString = self.tagsToString()
+        string = pattern.format(self.resolved_title,
+                                tagString,
+                                self.resolved_url)
 
         return string
     # toString()

@@ -61,6 +61,30 @@ class unitPocketItem(unittest.TestCase):
     # testShouldToString()
 
 
+    def testShouldToStringWithTags(self):
+        """Should return a string to be inserted into a file"""
+        self.details["tags"] = ["TEST_TAGS1", "TEST_TAGS2"]
+        pocket = PocketItem(self.details)
+
+        string = pocket.toString()
+
+        self.assertEqual(string, 
+                         "* TEST TITLE :TEST_TAGS1:TEST_TAGS2:\n  [[TEST URL]]\n")
+    # testShouldToStringWithTags()
+
+
+    def testShouldToStringWithTagsWithSpaces(self):
+        """Should return a string to be inserted into a file"""
+        self.details["tags"] = ["TEST TAGS1", "TEST TAGS2"]
+        pocket = PocketItem(self.details)
+
+        string = pocket.toString()
+
+        self.assertEqual(string, 
+                         "* TEST TITLE :TEST_TAGS1:TEST_TAGS2:\n  [[TEST URL]]\n")
+    # testShouldToStringWithTagsWithSpaces()
+
+
     def testShouldCreateItemEvenWithNotAllParameters(self):
         """Should create item even with not all parameters"""
 
