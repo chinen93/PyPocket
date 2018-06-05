@@ -33,7 +33,7 @@ class ModifyParam:
             "item_id": item.item_id
         }
 
-        pocketLogger.debug("Action" + action)
+        pocketLogger.debug("Action" + str(action))
 
         self.actions.append(action)
     # _createAction()
@@ -49,7 +49,7 @@ class ModifyParam:
             "item_id": item.item_id
         }
 
-        pocketLogger.debug("Tag action" + action)
+        pocketLogger.debug("Tag action" + str(action))
 
         self.actions.append(action)
     # _createTagAction()
