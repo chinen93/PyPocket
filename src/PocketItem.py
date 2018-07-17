@@ -1,7 +1,7 @@
 #
 # IMPORTS
 #
-
+from PocketLogger import pocketLogger
 
 #
 # CONSTANTS
@@ -71,6 +71,9 @@ class PocketItem:
 
             for tag in pocket_tags:
                 self.tags.append(tag)
+
+        pocketLogger.debug("Details for Item: ")
+        pocketLogger.debug(details)
     # __init__()
 
 
@@ -80,14 +83,19 @@ class PocketItem:
         """
 
         # If there is no tags, return an empty string.
-        if len(self.tags) == 0:
+        try:
+            if len(self.tags) == 0:
+                return ""
+        except AttributeError:
             return ""
+
 
         # For each tag append it to the end of the tags' string.
         # if the tag has spaces transform it to underscore
         string = " :"
         for tag in self.tags:
-            string += tag.replace(" ", "_") + ":"
+            if tag != "export emacs":
+                string += tag.replace(" ", "_") + ":"
 
         return string
     # tagsToString()

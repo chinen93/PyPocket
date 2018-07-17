@@ -1,7 +1,7 @@
 #
 # Documentation:
 # PyPocket
-# Python3 
+# Python3
 #
 
 
@@ -12,11 +12,15 @@ import Configuration
 import requests
 
 from PocketLogger import pocketLogger
+import logging
 
 from Keys import Keys
 from RetrieveParam import RetrieveParam
 from PocketItem import PocketItem
 from ModifyParam import ModifyParam
+
+import sys
+from getopt import getopt
 
 
 #
@@ -39,8 +43,8 @@ def getJsonPockets(keys, data):
     # Data to pass to server.
     data["consumer_key"] = keys.consumerKey
     data["access_token"] = keys.accessToken
-
-    pocketLogger.info(data)
+    pocketLogger.debug("Retrieve Params: ")
+    pocketLogger.debug(data)
 
     # try: Get the response from the server.
     try:
@@ -53,8 +57,12 @@ def getJsonPockets(keys, data):
 
     # try: Get the list of itens from pocket.
     try:
+        pocketLogger.debug("Since")
         pocketLogger.debug(response.json()['since'])
+
         pocket_items = response.json()['list']
+        pocketLogger.debug("Response JSON")
+        pocketLogger.debug(pocket_items)
 
     # Error: Couldn't get data from server response, exit.
     except:
@@ -81,12 +89,11 @@ def getJsonPockets(keys, data):
 # getJsonPockets()
 
 
-
 def removeTagFromItem(keys, items):
     """
     I remove a tag from the item
     """
-    
+
     # Create post data and put the keys to access the API.
     data = {}
     data["consumer_key"] = keys.consumerKey
@@ -114,7 +121,7 @@ def removeTagFromItem(keys, items):
 
     # Exit normaly.
     pocketLogger.info("Items updated")
-    
+
 # removeTagFromItem()
 
 
@@ -134,6 +141,7 @@ def main():
     # Parameters for retrieving itens from pocket.
     retrieveParam = RetrieveParam()
     data = retrieveParam.data()
+    pocketLogger.debug(data)
 
     # Get items from Pocket API.
     items = getJsonPockets(keys, data)
@@ -142,20 +150,64 @@ def main():
     if len(items) == 0:
         pocketLogger.info("No itens to be saved")
         exit()
-    
+
     # Save each item to the file.
-    for item in items:
-        item.saveToFile(Configuration.FILENAME_TO_SAVE)
+    if Configuration.SAVE_ITENS:
+        for item in items:
+            item.saveToFile(Configuration.FILENAME_TO_SAVE)
 
     # Use the Pocket API to remove the retrieve tag.
-    removeTagFromItem(keys, items)
+    if Configuration.REMOVE_TAG:
+        removeTagFromItem(keys, items)
 
     # log items
-    pocketLogger.debug(items)
+    for item in items:
+        pocketLogger.debug("Info item: " + item.toString())
+
 # main()
 
 
+def parseArgs():
+    """
+    I parse Args from the console with getopt and update the state
+    """
+
+    shortopts = "vo:t:r"
+    longopts = ["verbose", "version", "output=",
+                "tagSearch=", "removeTag", "doNotSave", "debug"]
+
+    options, remains = getopt(sys.argv[1:], shortopts, longopts)
+
+    for opt, answer in options:
+        if opt in ("-v", "--verbose"):
+            pocketLogger.setLevel(logging.INFO)
+
+        if opt in ("--debug"):
+            pocketLogger.setLevel(logging.DEBUG)
+
+        if opt in ("--version"):
+            pocketLogger.setLevel(logging.INFO)
+            pocketLogger.info(Configuration.VERSION)
+            exit()
+
+        if opt in ("--output"):
+            Configuration.FILENAME_TO_SAVE = answer
+
+        if opt in ("-t", "--tagSearch"):
+            Configuration.RET_PARAM_TAG = answer
+
+        if opt in ("-r", "--removeTag"):
+            Configuration.REMOVE_TAG = True
+
+        if opt in ("--doNotSave"):
+            Configuration.SAVE_ITENS = False
+
+# parseArgs()
+
+
 if __name__ == "__main__":
+
+    parseArgs()
     main()
 else:
     raise "This script should be called as a single program"
