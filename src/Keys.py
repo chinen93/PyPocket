@@ -41,7 +41,6 @@ class Keys:
     # hasKeys()
 
 
-
     def getKeys(self):
         """
         I get the keys to access the Pocket API.

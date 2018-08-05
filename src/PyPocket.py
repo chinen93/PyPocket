@@ -22,7 +22,6 @@ from ModifyParam import ModifyParam
 import sys
 from getopt import getopt
 
-
 #
 # CONSTANTS
 #
@@ -85,6 +84,7 @@ def getJsonPockets(keys, data):
         # Put the item with only the needed descriptions on the return list.
         items.append(pocketItem)
 
+    pocketLogger.info("Items were retrieved")
     return items
 # getJsonPockets()
 
@@ -120,7 +120,8 @@ def removeTagFromItem(keys, items):
         exit()
 
     # Exit normaly.
-    pocketLogger.info("Items updated")
+    info = "Items updated. Tag '{}' was removed from every item"
+    pocketLogger.info(info.format(Configuration.RET_PARAM_TAG))
 
 # removeTagFromItem()
 

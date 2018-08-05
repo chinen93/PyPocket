@@ -108,9 +108,20 @@ class PocketItem:
 
         pattern = "* {}{}\n  [[{}]]\n"
         tagString = self.tagsToString()
-        string = pattern.format(self.resolved_title,
+
+        try:
+            title = self.resolved_title
+        except AttributeError:
+            title = self.given_title
+
+        try:
+            url = self.resolved_url
+        except AttributeError:
+            url = self.given_url
+
+        string = pattern.format(title,
                                 tagString,
-                                self.resolved_url)
+                                url)
 
         return string
     # toString()
