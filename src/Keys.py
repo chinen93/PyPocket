@@ -52,7 +52,7 @@ class Keys:
         try:
             # Open file to read
             with open(Configuration.FILENAME, "r") as fo:
-                pocketLogger.info(Configuration.FILENAME + " was opened to read")
+                pocketLogger.info(Configuration.FILENAME + " was opened to read keys")
                 line = fo.readline()
 
             # Remove special characters

@@ -84,7 +84,8 @@ def getJsonPockets(keys, data):
         # Put the item with only the needed descriptions on the return list.
         items.append(pocketItem)
 
-    pocketLogger.info("Items were retrieved")
+    info = "{} items were retrieved"
+    pocketLogger.info(info.format(len(items)))
     return items
 # getJsonPockets()
 
@@ -154,6 +155,8 @@ def main():
 
     # Save each item to the file.
     if Configuration.SAVE_ITENS:
+        info = "File to Save: {}"
+        pocketLogger.info(info.format(Configuration.FILENAME_TO_SAVE))
         for item in items:
             item.saveToFile(Configuration.FILENAME_TO_SAVE)
 
