@@ -2,7 +2,7 @@ authenticate:
 	python3 ./src/GetAuthentication.py
 
 run:
-	python3 ./src/PyPocket.py --tagSearch="export emacs" --removeTag --doNotSave
+	python3 ./src/PyPocket.py -v --tagSearch="export emacs" --removeTag
 
 version:
 	python3 ./src/PyPocket.py --version
