@@ -15,7 +15,24 @@ To use the program with the default configuration execute:
 python3 ./PyPocket.py
 ```
 
-## Alternative uses
+## Makefile Uses
+
+### Get and Save the Consumer Key and Authentication Key into a File for Future Use
+``` shell
+make authenticate
+```
+
+### Run with Default Configuration
+``` shell
+make run
+```
+
+The last command is the same as:
+``` shell
+python3 .PyPocket.py -v --tagSearch="export emacs" --removeTag
+```
+
+## Alternative Uses
 
 To change the tag that's being used:
 ``` shell
@@ -56,7 +73,7 @@ app](https://getpocket.com/developer/apps/new)
 
 ### Keys to Access the API
 
-#### First you need a "Consumer Key"
+#### First you Need a "Consumer Key"
 
 You can get a [consumer key](https://getpocket.com/developer/apps/new)
 in the link. If you don't have one.
