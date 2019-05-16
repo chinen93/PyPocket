@@ -1,8 +1,11 @@
+help:
+	echo "OPTIONS: authenticate, run, version, parameter_test, test"
+
 authenticate:
 	python3 ./src/GetAuthentication.py
 
 run:
-	python3 ./src/PyPocket.py -v --tagSearch="export emacs" --removeTag
+	python3 ./src/PyPocket.py --verbose --tagSearch="export emacs" --removeTag
 
 version:
 	python3 ./src/PyPocket.py --version
